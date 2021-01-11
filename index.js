@@ -7,7 +7,7 @@ const app = express()
 require('./routes/authRoutes')(app)
 
 app.get('/', (req, res) => {
-    res.send({ Welcome: 'to Strava Dashboard Git' })
+    res.send({ Welcome: 'to Strava Dashboard Git 2' })
   }
 )
 
