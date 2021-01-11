@@ -1,5 +1,4 @@
-
 module.exports = {
-  googleClientID: process.env.GOOGLE_CLIENT_ID,
-  googleClientSecret: process.env.GOOGLE_CLIENT_SECRET
+  googleClientID: process.env.APPSETTING_GOOGLE_CLIENT_ID,
+  googleClientSecret: process.env.APPSETTING_GOOGLE_CLIENT_SECRET
 }
