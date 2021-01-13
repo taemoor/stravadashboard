@@ -14,6 +14,7 @@ module.exports = (app) => {
   )
 
   app.get('/api/logout', (req, res) => {
+    // passport attaches logout function to the req object
     req.logout()
     res.redirect('/')
   })
