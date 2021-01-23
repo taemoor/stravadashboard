@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import reduxThunk from 'redux-thunk'
+import { ChakraProvider } from '@chakra-ui/react'
 
 import App from './components/App'
 import reducers from './reducers'
@@ -13,7 +14,9 @@ const store = createStore(reducers, {}, applyMiddleware(reduxThunk))
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ChakraProvider>
+      <App />
+    </ChakraProvider>
   </Provider>,
   document.querySelector('#root')
 )

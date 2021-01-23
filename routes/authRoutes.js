@@ -1,15 +1,13 @@
 const passport = require('passport')
 
 module.exports = (app) => {
-  app.get('/auth/google', passport.authenticate('google', {
-    scope: ['profile', 'email']
-  }))
+  app.get('/auth/strava', passport.authenticate('strava', { scope: ['activity:read_all'] }))
 
   app.get(
-    '/auth/google/callback',
-    passport.authenticate('google'),
+    '/auth/strava/callback',
+    passport.authenticate('strava'),
     (req, res) => {
-      res.redirect('/surveys')
+      res.redirect('/')
     }
   )
 
@@ -20,6 +18,7 @@ module.exports = (app) => {
   })
 
   app.get('/api/current_user', (req, res) => {
+    console.log('/api/current_user req: ', req)
     res.send(req.user)
   })
 }

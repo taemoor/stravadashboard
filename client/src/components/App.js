@@ -8,6 +8,9 @@ import Landing from './Landing';
 import Dashboard from './Dashboard';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchAthlete();
+  }
 
   render() {
     return (
