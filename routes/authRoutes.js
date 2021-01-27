@@ -25,8 +25,10 @@ module.exports = (app) => {
     let athleteActivitiesExist = false
     if (req.user) {
       const Activity = getActivityModel(req.user.stravaId)
-      athleteActivitiesExist = utils.doesCollectionExist(Activity, `activities.${req.user.stravaId}`)
+      athleteActivitiesExist = await utils.doesCollectionExist(Activity, `activities.${req.user.stravaId}`)
+      res.send({user: req.user, athleteActivitiesExist})
+    } else {
+      res.send({user: req.user, athleteActivitiesExist})
     }
-    res.send({user: req.user, athleteActivitiesExist})
   })
 }

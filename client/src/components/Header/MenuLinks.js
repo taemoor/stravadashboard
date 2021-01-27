@@ -17,7 +17,7 @@ const MenuLinks = (props) => {
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-        {props.user &&
+        {props.user && props.athleteActivitiesExist &&
           <>
             <MenuItem to="/gear">Gear</MenuItem>
             <MenuItem to="/dashboard">Progression</MenuItem>
@@ -34,7 +34,7 @@ const MenuLinks = (props) => {
 }
 
 function mapStateToProps({ auth }) {
-  return { user: auth.user }
+  return { user: auth.user, athleteActivitiesExist: auth.athleteActivitiesExist }
 }
 
 export default connect(mapStateToProps)(MenuLinks)
