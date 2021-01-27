@@ -2,6 +2,7 @@ import React from "react"
 import { connect } from 'react-redux'
 import { Box, Stack } from "@chakra-ui/react"
 import MenuItem from './MenuItem'
+import UserMenu from './UserMenu'
 
 const MenuLinks = (props) => {
   return (
@@ -16,21 +17,24 @@ const MenuLinks = (props) => {
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-        <MenuItem to="/dashboard">Dashboard</MenuItem>
-        <MenuItem to="/api/athlete/activities">Import Strava Activities</MenuItem>
+        {props.user &&
+          <>
+            <MenuItem to="/gear">Gear</MenuItem>
+            <MenuItem to="/dashboard">Progression</MenuItem>
+          </>
+        }
         {
-          props.auth
-          ? <MenuItem to="/api/logout">Logout</MenuItem>
+          props.user
+          ? <UserMenu user={props.user} />
           : <MenuItem to="/auth/strava">Login</MenuItem>
         }
-
       </Stack>
     </Box>
   )
 }
 
 function mapStateToProps({ auth }) {
-  return { auth }
+  return { user: auth.user }
 }
 
 export default connect(mapStateToProps)(MenuLinks)

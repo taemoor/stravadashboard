@@ -1,5 +1,5 @@
-import React from 'react';
-import { ResponsiveLine } from '@nivo/line';
+import React from 'react'
+import { ResponsiveLine } from '@nivo/line'
 // import data from './data';
 
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -9,6 +9,7 @@ const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "
 const LineChart = (props) => (
   <ResponsiveLine
     data={props.data}
+    width={1200}
     margin={{
       top: 50,
       right: 110,
@@ -30,7 +31,15 @@ const LineChart = (props) => (
       return `${months[xDate.getMonth()]} ${xDate.getDate()}`
     }}
     yFormat={(y) => {
-      return `${Math.floor(y)}h ${Math.floor((y-Math.floor(y))*60)}m`
+      if (props.labelYAxis.includes('Time')) {
+        return `${Math.floor(y)}h ${Math.floor((y-Math.floor(y))*60)}m`
+      } else if (props.labelYAxis.includes('Distance')) {
+        return `${y.toFixed(2)} kms`
+      } else if (props.labelYAxis.includes('Elevation')) {
+        return `${y.toFixed(2)} meters`
+      } else {
+        return y
+      }
     }}
     minY="auto"
     maxY="auto"
@@ -55,8 +64,8 @@ const LineChart = (props) => (
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: 'Moving Time (hours)',
-      legendOffset: -40
+      legend: props.labelYAxis,
+      legendOffset: -50
     }}
     dotSize={2}
     dotColor="inherit:darker(0.3)"

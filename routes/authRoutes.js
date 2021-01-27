@@ -1,7 +1,10 @@
 const passport = require('passport')
+const mongoose = require('mongoose')
+const getActivityModel = require('../models/Activity')
+const utils = require('../utils')
 
 module.exports = (app) => {
-  app.get('/auth/strava', passport.authenticate('strava', { scope: ['activity:read_all'] }))
+  app.get('/auth/strava', passport.authenticate('strava', { scope: "profile:read_all,activity:read_all" }))
 
   app.get(
     '/auth/strava/callback',
@@ -17,8 +20,13 @@ module.exports = (app) => {
     res.redirect('/')
   })
 
-  app.get('/api/current_user', (req, res) => {
-    console.log('/api/current_user req: ', req)
-    res.send(req.user)
+  app.get('/api/current_user', async (req, res) => {
+    console.log('/api/current_user called')
+    let athleteActivitiesExist = false
+    if (req.user) {
+      const Activity = getActivityModel(req.user.stravaId)
+      athleteActivitiesExist = utils.doesCollectionExist(Activity, `activities.${req.user.stravaId}`)
+    }
+    res.send({user: req.user, athleteActivitiesExist})
   })
 }

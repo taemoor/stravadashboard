@@ -1,15 +1,22 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
-import * as actions from '../actions';
+import React, { Component } from 'react'
+import { BrowserRouter, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 
-import Header from './Header';
-import Landing from './Landing';
-import Dashboard from './Dashboard';
-
+import Header from './Header'
+import Landing from './Landing'
+import Progression from './Progression'
+import Gear from './Gear'
+import StravaImport from './StravaImport'
 class App extends Component {
   componentDidMount() {
     this.props.fetchAthlete();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.auth.athleteActivitiesExist && !prevProps.auth.athleteActivitiesExist) {
+      // this.props.importActivitiesFromStrava(false)
+    }
   }
 
   render() {
@@ -19,7 +26,9 @@ class App extends Component {
           <div>
             <Header />
             <Route exact path="/" component={Landing} />
-            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/dashboard" component={Progression} />
+            <Route exact path="/gear" component={Gear} />
+            <Route exact path="/stravaimport" component={StravaImport} />
           </div>
         </BrowserRouter>
       </div>
@@ -27,4 +36,8 @@ class App extends Component {
   }
 }
 
-export default connect(null, actions)(App);
+function mapStateToProps(auth) {
+  return auth
+}
+
+export default connect(mapStateToProps, actions)(App)
