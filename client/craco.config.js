@@ -1,10 +1,12 @@
 module.exports = {
   webpack: {
-    rules: [
-      {
-        test: /react-spring/,
-        sideEffects: true
-      }
-    ]
+    module: {
+      rules: [
+        {
+          test: /react-spring/,
+          sideEffects: true
+        }
+      ]
+    }
   }
 };
