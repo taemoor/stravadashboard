@@ -26,9 +26,9 @@ class App extends Component {
           <div>
             <Header />
             <Route exact path="/" component={Landing} />
-            <Route exact path="/dashboard" component={Progression} />
-            <Route exact path="/gear" component={Gear} />
-            <Route exact path="/stravaimport" component={StravaImport} />
+            <Route path="/dashboard" component={Progression} />
+            <Route path="/gear" component={Gear} />
+            <Route path="/stravaimport" component={StravaImport} />
           </div>
         </BrowserRouter>
       </div>

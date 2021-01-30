@@ -8,11 +8,12 @@ import {
   ModalFooter,
   Center,
   Button,
+  Text,
   CircularProgress} from '@chakra-ui/react'
 
 
 const ChModal = (props) => {
-  const {showProgress, onClickDialogOpen, onClickDialogClose, isOpen, onClickBegin} = props
+  const {showProgress, onClickDialogOpen, onClickDialogClose, isOpen} = props
   return (
     <>
       <Button onClick={onClickDialogOpen}>Import Activities from Strava</Button>
@@ -24,13 +25,13 @@ const ChModal = (props) => {
             <Center>
               {showProgress
                 ? <CircularProgress isIndeterminate color="orange.400" />
-                : <Button onClick={onClickBegin}>Begin Import</Button>
+                : <Text>Import Successful!</Text>
               }
             </Center>
           </ModalBody>
           <ModalFooter>
             <Button disabled={showProgress} colorScheme="orange" mr={3} onClick={onClickDialogClose}>
-              Done
+              Close
             </Button>
         </ModalFooter>
         </ModalContent>

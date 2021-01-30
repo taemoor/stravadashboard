@@ -27,6 +27,15 @@ require('./routes/authRoutes')(app)
 require('./routes/stravaRoutes')(app)
 require('./routes/stralyzerRoutes')(app)
 
+app.use(function forceLiveDomain(req, res, next) {
+  // Don't allow user to hit Heroku now that we have a domain
+  var host = req.get('Host');
+  if (host === 'http://stralyzer.com') {
+    return res.redirect(301, 'https://www.stralyzer.com/' + req.originalUrl);
+  }
+  return next();
+})
+
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets.
   // like our main.js file, or main.css file.
