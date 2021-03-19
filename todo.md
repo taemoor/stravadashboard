@@ -5,8 +5,8 @@
 * Come up with a testing strategy for unit/integration/e2e testig
 * Evaluate GraphQL for usage
 * Version control scheme
-* Responsive Design
-* Accessibility
+* Responsive Design especially mobile strategy
+* Accessibility considerations
 * Security
 
 
@@ -15,3 +15,4 @@
 * Refresh token implementation
 * Chart gets crowded with too many bicycles
 * Implement web hooks to auto-fetch new activities
+* Improve landing page
