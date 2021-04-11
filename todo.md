@@ -1,7 +1,19 @@
-## Improvements 
+## Fixes 
 
 * Clean up the code
 * Fix naked domain security issue
+
+## Features
+
+* Refresh token implementation
+* Write Readme file
+* Chart gets crowded with too many bicycles
+* Implement web hooks to auto-fetch new activities
+* Improve landing page
+
+
+## Improvements
+
 * TypeScript
 * Use Redux Toolkit
 * Come up with a testing strategy for unit/integration/e2e testig
@@ -11,10 +23,3 @@
 * Accessibility considerations
 * Security
 
-
-## New Features
-
-* Refresh token implementation
-* Chart gets crowded with too many bicycles
-* Implement web hooks to auto-fetch new activities
-* Improve landing page
