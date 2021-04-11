@@ -14,6 +14,7 @@
 
 ## Improvements
 
+* Add error handling
 * TypeScript
 * Use Redux Toolkit
 * Come up with a testing strategy for unit/integration/e2e testig
