@@ -35,7 +35,7 @@ module.exports = app => {
         const Activity = getActivityModel(req.user.stravaId)
         const activities = await Activity.find()
 
-        activities.reverse().map(activity => {
+        activities.map(activity => {
           const startDate = new Date(activity.start_date)
           const startDay = dayOfYear(startDate)
           const startYear = startDate.getFullYear()
@@ -46,29 +46,36 @@ module.exports = app => {
             metric = metric / 1000
           }
 
-          const year = yearlyProgressions.find(year => year.id === startYear)
-          if (year && year.data) {
-            data = year.data
-            data[startDay] = {"x": startDay, "y":  year.cumulative + metric}
-            year.cumulative += metric
-            for(let i = startDay+1; i < 367; i++) {
-              data[i] = {"x": i, "y":  year.cumulative}
-            }
-          } else {
-            const yearObj = getYearStructure(startYear)
-            for(let i = startDay; i < 367; i++) {
-              yearObj.data[i] = {"x": i, "y":  metric}
-            }
-            yearObj.cumulative = metric
-            yearlyProgressions.push(yearObj)
+          let yearNew = yearlyProgressions.find(year => year.id === startYear)
+          if (!yearNew) {
+            yearlyProgressions.push({id: startYear, cumulative: 0, data: {}})
+            yearNew = yearlyProgressions.find(year => year.id === startYear)
           }
+          yearNew.data[startDay]
+          ? yearNew.data[startDay] += metric
+          : yearNew.data[startDay] = metric
         })
-        const curYear = yearlyProgressions.find(year => year.id === currentYear)
+
+        const yearlyData = []
+        for (const year of yearlyProgressions) {
+          let yearForData = {}
+          yearForData.id = year.id
+          yearForData.cumulative = 0
+          yearForData.data = []
+
+          for(let i = 1; i < 367; i++) {
+            year.data[i] && (yearForData.cumulative += year.data[i])
+            yearForData.data.push({"x": i, "y":  yearForData.cumulative})
+          }
+          yearlyData.push(yearForData)
+        }
+
+        const curYear = yearlyData.find(year => year.id === currentYear)
         if (curYear) {
           curYear.data = curYear.data.slice(0, currentDayofYear+1)
         }
 
-        res.send(yearlyProgressions)
+        res.send(yearlyData)
 
       } catch (error) {
         console.log(error);
